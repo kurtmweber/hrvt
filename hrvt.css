@@ -1,0 +1,59 @@
+nav {
+	background-color: #bbbbbb;
+	font-family: courier;
+	/*font-size: large;*/
+	text-align: center;
+}
+
+nav.subnav {
+	background-color: #dddddd;
+}
+
+h1 {
+	text-align: center;
+}
+
+input.invalid {
+	background-color: #ffaaaa;
+}
+
+label {
+	display: inline-block;
+	width: 20ch;
+	text-align: right;
+}
+
+label.login {
+	display: inline-block;
+	width: 9ch;
+	text-align: right;
+}
+
+label.invalid {
+	color: red;
+}
+
+p.invalid {
+	color: red;
+}
+
+select.invalid {
+	background-color: #ffaaaa;
+}
+
+.navbar-link {
+	font-weight: bolder;
+	color: brown;
+}
+
+.navbar-link:link{
+	text-decoration: none;
+	color: brown;
+	font-weight: bolder;
+}
+
+.navbar-link:hover{
+	text-decoration: none;
+	color: red;
+	font-weight: bolder;
+}
