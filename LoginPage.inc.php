@@ -53,8 +53,10 @@
 				}
 				
 			if (!$this->user){
+				LoggedOutNavbar();
 				$this->ShowLoginForm(parent::GetLoginForm("login"));
 				} else {
+				LoggedInNavbar();
 				$this->TabbedHtmlOut("<P>Login succeeded.</P>");
 				}
 				
