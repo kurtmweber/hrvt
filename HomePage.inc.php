@@ -9,25 +9,22 @@
 	class HomePage extends HrvtPage{
 		function __construct(){
 			parent::__construct("Home");
+			
+			if ($this->user){
+				$this->LoggedInBegin();
+				}
 			return;
 			}
 			
-		function LoggedIn(){
-			LoggedOutNavbar();
+		function LoggedInBegin(){
+			$this->TabbedHtmlOut("<P>Hi, " . $this->user->GetUserName() . "!</P>");
 			return;
 			}
 			
-		function LoggedOut(){
-			LoggedInNavbar();
-			return;
-			}
+		
 			
-		function __destruct(){
-			PageBottom();
-			
+		function __destruct(){			
 			parent::__destruct();
-			
-			ob_end_flush();
 			return;
 			}
 		}

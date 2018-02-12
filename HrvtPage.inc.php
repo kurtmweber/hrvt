@@ -7,9 +7,9 @@
 
 class HrvtPage extends SecurePage{
 	function __construct($PageTitle){
-		parent::__construct("Home");
+		parent::__construct($PageTitle);
 			
-		PageTop("Home");
+		PageTop($PageTitle);
 		
 		if (!$this->user){
 			LoggedOutNavbar();
@@ -17,6 +17,14 @@ class HrvtPage extends SecurePage{
 			LoggedInNavbar();
 			}
 		return;
+		}
+		
+	function __destruct(){
+		PageBottom();
+		
+		ob_end_flush();
+		
+		parent::__destruct();
 		}
 		
 	}

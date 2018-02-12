@@ -23,7 +23,7 @@
 	function LoggedInNavbar(){
 ?>
 		<NAV>
-			<A HREF="index.php" CLASS="navbar-link">[home]</A> | <A HREF="index.php?logout" CLASS="navbar-link">[logout]</A>
+			<A HREF="index.php" CLASS="navbar-link">[home]</A> | <A HREF="index.php?collections" CLASS="navbar-link">[collections]</A> | <A HREF="index.php?logout" CLASS="navbar-link">[logout]</A>
 		</NAV>
 <?php
 		}
