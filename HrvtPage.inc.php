@@ -6,6 +6,8 @@
 	require_once(__DIR__ . "/Common.inc.php");
 
 class HrvtPage extends SecurePage{
+	protected $hrvtUser;
+	
 	function __construct($PageTitle){
 		parent::__construct($PageTitle);
 			
