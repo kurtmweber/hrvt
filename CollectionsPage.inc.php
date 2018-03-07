@@ -42,6 +42,12 @@
 				
 			$this->TabbedHtmlOut("<TABLE>");
 			$this->TabLevel++;
+			$this->TabbedHtmlOut("<TR>");
+			$this->TabLevel++;
+			$this->TabbedHtmlOut("<TH>Name</TH>");
+			$this->TabbedHtmlOut("<TH>Created</TH>");
+			$this->TabbedHtmlOut("<TH>Modified</TH>");
+			$this->TabLevel--;
 			
 			$even = false;
 			
@@ -54,8 +60,10 @@
 					
 				$this->TabLevel++;
 				$this->TabbedHtmlOut("<TD><A HREF=\"index.php?collections=view&id=" . $curColl->Id() . "\" TITLE=\"" . $curColl->Description() . "\">" . $curColl->Title() . "</A></TD>");
-				$this->TabbedHtmlOut("<TD STYLE=\"font-size: small\"><A HREF=\"index.php?collections=edit&id=" . $curColl->Id() . "\">[edit]</A></TD>");
-				$this->TabbedHtmlOut("<TD STYLE=\"font-size: small\"><A HREF=\"index.php?collections=delete&id=" . $curColl->Id() . "\">[delete]</A></TD>");
+				$this->TabbedHtmlOut("<TD>" . $curColl->CreationTime()->format("Y-m-d H:i:s") . "</TD>");
+				$this->TabbedHtmlOut("<TD>" . $curColl->UpdateTime()->format("Y-m-d H:i:s") . "</TD>");
+				$this->TabbedHtmlOut("<TD STYLE=\"font-size: small\"><A HREF=\"index.php?collections=edit&id=" . $curColl->Id() . "\" CLASS=\"collection-utility-link\">[edit]</A></TD>");
+				$this->TabbedHtmlOut("<TD STYLE=\"font-size: small\"><A HREF=\"index.php?collections=delete&id=" . $curColl->Id() . "\" CLASS=\"collection-utility-link\">[delete]</A></TD>");
 				$this->TabLevel--;
 				$this->TabbedHtmlOut("</TR>");
 				

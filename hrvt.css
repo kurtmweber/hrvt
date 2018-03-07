@@ -13,14 +13,6 @@ h1 {
 	text-align: center;
 }
 
-tr{
-	background-color: #77ff77;
-}
-
-tr.collTableEven{
-	background-color: #ff77ff;
-}
-
 input.invalid {
 	background-color: #ffaaaa;
 }
@@ -64,4 +56,8 @@ select.invalid {
 	text-decoration: none;
 	color: red;
 	font-weight: bolder;
+}
+
+.collection-utility-link:hover{
+	color: red;
 }
