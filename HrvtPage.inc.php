@@ -4,6 +4,7 @@
 	require_once(__DIR__ . "/../SecurePage.inc.php");
 	
 	require_once(__DIR__ . "/Common.inc.php");
+	require_once(__DIR__ . "/HrvtUserClass.inc.php");
 
 class HrvtPage extends SecurePage{
 	protected $hrvtUser;
@@ -17,7 +18,14 @@ class HrvtPage extends SecurePage{
 			LoggedOutNavbar();
 			} else {
 			LoggedInNavbar();
+			$this->hrvtUser = new HrvtUserClass($this->user);
 			}
+		return;
+		}
+		
+	function NotLoggedIn(){
+		$this->TabbedHtmlOut("You must be logged in to use this function.");
+		
 		return;
 		}
 		

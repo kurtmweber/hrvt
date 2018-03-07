@@ -8,6 +8,7 @@
 		printf("\t\t<LINK rel=\"stylesheet\" type=\"text/css\" href=\"sitecode/hrvt.css\">\n");
 		printf("\t</HEAD>\n");
 		printf("\t<BODY>\n");
+		printf("\t\t<H1>Humanities Research Visualization Tool</H1>");
 		
 		return;
 		}
@@ -24,6 +25,14 @@
 ?>
 		<NAV>
 			<A HREF="index.php" CLASS="navbar-link">[home]</A> | <A HREF="index.php?collections" CLASS="navbar-link">[collections]</A> | <A HREF="index.php?logout" CLASS="navbar-link">[logout]</A>
+		</NAV>
+<?php
+		}
+		
+	function CollectionsNavbar(){
+?>
+		<NAV CLASS="subnav">
+			<A HREF="index.php?collections=new" CLASS="navbar-link">[new collection]</A>
 		</NAV>
 <?php
 		}
