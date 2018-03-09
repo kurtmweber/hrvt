@@ -4,6 +4,7 @@
 
 	class CollectionsPage extends HrvtPage{
 		function __construct(){
+			ob_start();
 			parent::__construct("Collections");
 		
 			if ($this->user){
@@ -16,12 +17,76 @@
 		
 		function LoggedInBegin(){
 			CollectionsNavbar();
-			if ($_GET['collections'] == "new"){
-				$this->NewCollection();
-				} else {	
-				$this->DisplayCollections();
+			
+			switch($_GET['collections']){
+				case "new":
+					$this->NewCollection();
+					break;
+				case "view":
+					$this->ViewCollection();
+					break;
+				case "edit":
+					$this->EditCollection();
+					break;
+				case "delete":
+					$this->DeleteCollection();
+					break;
+				default:
+					$this->DisplayCollections();
+					break;
 				}
 			
+			return;
+			}
+			
+		function GetCollection($collId){
+			try {
+				$delColl = new Collection($collId, $this->user->GetUserId());
+				} catch (Exception $e){
+				switch ($e->getCode()){
+					case HRVT_ERROR_NO_PERMISSION:
+						$this->TabbedHtmlOut("<P>You do not have permission to view or delete this collection.</P>");
+						return;
+					case HRVT_ERROR_COLLECTION_NOT_EXIST:
+						$this->TabbedHtmlOut("<P>This collection does not exist.</P>");
+						return;
+					}
+				}
+				
+			return $delColl;
+			}
+			
+		function DeleteCollection(){
+			$collId = $_GET['id'];
+			
+			if (isset($_POST['cancel'])){
+				ob_end_clean();
+				header("Location: index.php?collections");
+				}
+				
+			if (isset($_POST['delete'])){
+				if (!isset($_POST['id'])){
+					$this->TabbedHtmlOut("<P>No collection specified.</P>");
+					}
+				$delColl = $this->GetCollection($_POST['id']);
+				
+				$delColl->Delete();
+					
+				$this->TabbedHtmlOut("<P>Deleted.</P>");
+				
+				return;
+				}
+				
+			$delColl = $this->GetCollection($collId);
+			
+			$this->TabbedHtmlOut("<P>You are deleting collection #" . $collId . ", <SPAN TITLE=\"" . $delColl->Description() . "\">\"" . $delColl->Title() . "\"</SPAN>, with xxx members.");
+			$this->TabbedHtmlOut("<FORM ACTION=\"index.php?collections=delete\" METHOD=\"POST\">");
+			$this->TabLevel++;
+			$this->TabbedHtmlOut("<INPUT TYPE=\"HIDDEN\" NAME=\"id\" VALUE=\"" . $collId . "\">");
+			$this->TabbedHtmlOut("<INPUT TYPE=\"SUBMIT\" NAME=\"delete\" VALUE=\"Delete\">");
+			$this->TabbedHtmlOut("<INPUT TYPE=\"SUBMIT\" NAME=\"cancel\" VALUE=\"Cancel\">");
+			$this->TabLevel--;
+			$this->TabbedHtmlOut("</FORM>");
 			return;
 			}
 			
@@ -119,6 +184,7 @@
 		
 		function __destruct(){			
 			parent::__destruct();
+			ob_end_flush();
 			return;
 			}
 		}

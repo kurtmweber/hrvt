@@ -2,6 +2,8 @@
 	require_once(__DIR__ . "/../Database.inc.php");
 	require_once(__DIR__ . "/../Config.inc.php");
 	
+	require_once(__DIR__ . "/HrvtConfig.inc.php");
+	
 	class Collection{
 		private $collId;
 		private $ownerId;
@@ -34,6 +36,65 @@
 				$this->Description(func_get_arg(2));
 				return;
 				}
+				
+			if (func_num_args() == 2){
+				$this->Id(func_get_arg(0));
+				$this->Owner(func_get_arg(1));
+				
+				if (!$this->IsOwner()){
+					throw new Exception("Permission denied", HRVT_ERROR_NO_PERMISSION);
+					}
+					
+				$this->Populate();
+				return;
+				}
+			
+			return;
+			}
+			
+		function Populate(){
+			$conn = GetDatabaseConn();
+			
+			$stmt = $conn->stmt_init();
+			
+			if (!$stmt->prepare("SELECT creationTime, updateTime, title, description FROM collections WHERE collectionId = ? AND ownerId = ?")){
+				throw new Exception("prepared statement failed", E_PREPARED_STMT_UNRECOV);
+				}
+				
+			$stmt->bind_param("ii", $this->Id(), $this->Owner());
+			$stmt->execute();
+			$stmt->store_result();
+			$stmt->bind_result($ct, $ut, $t, $d);
+			
+			if ($stmt->num_rows == 0){
+				throw new Exception("Collection does not exist", HRVT_ERROR_COLLECTION_NOT_EXIST);
+				}
+				
+			$stmt->fetch();
+				
+			$this->CreationTime($ct);
+			$this->UpdateTime($ut);
+			$this->Title($t);
+			$this->Description($d);
+			
+			return;
+			}
+			
+		function Delete(){
+			if (!$this->IsOwner()){
+				throw new Exception("No permission to make changes", HRVT_ERROR_NO_PERMISSION);
+				}
+				
+			$conn = GetDatabaseConn();
+			
+			$stmt  = $conn->stmt_init();
+			
+			if (!$stmt->prepare("DELETE FROM collections WHERE collectionId = ? AND ownerId = ?")){
+				throw new Exception("prepared statement failed", E_PREPARED_STMT_UNRECOV);
+				}
+				
+			$stmt->bind_param("ii", $this->Id(), $this->Owner());
+			$stmt->execute();
 			
 			return;
 			}
@@ -72,7 +133,7 @@
 			
 			$stmt = $conn->stmt_init();
 			if ($stmt->prepare("SELECT * FROM collections WHERE collectionID = ? AND ownerId = ?")){
-				$stmt->bind_param("ii", $this->Id(), $this->ownerId());
+				$stmt->bind_param("ii", $this->Id(), $this->Owner());
 				$stmt->execute();
 				$stmt->store_result();
 				if ($stmt->num_rows != 0){

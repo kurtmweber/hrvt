@@ -1,3 +1,4 @@
 <?php
-	define ("HRVT_ERROR_NO_PERMISSION", 0);
+	define("HRVT_ERROR_NO_PERMISSION", 0);
+	define("HRVT_ERROR_COLLECTION_NOT_EXIST", 1);
 ?>
