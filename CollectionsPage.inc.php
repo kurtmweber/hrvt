@@ -26,7 +26,15 @@
 					$this->ViewCollection();
 					break;
 				case "edit":
-					$this->EditCollection();
+					if (isset($_GET['id'])){
+						$this->EditCollection($_GET['id']);
+						break;
+						}
+						
+					if (isset($_POST['id'])){
+						$this->EditCollection($_POST['id']);
+						break;
+						}
 					break;
 				case "delete":
 					$this->DeleteCollection();
@@ -41,7 +49,7 @@
 			
 		function GetCollection($collId){
 			try {
-				$delColl = new Collection($collId, $this->user->GetUserId());
+				$getColl = new Collection($collId, $this->user->GetUserId());
 				} catch (Exception $e){
 				switch ($e->getCode()){
 					case HRVT_ERROR_NO_PERMISSION:
@@ -53,7 +61,7 @@
 					}
 				}
 				
-			return $delColl;
+			return $getColl;
 			}
 			
 		function DeleteCollection(){
@@ -165,13 +173,38 @@
 			}
 			
 		function NewCollectionForm(){
-			$this->TabbedHtmlOut("<FORM ACTION=\"index.php?collections=new\" METHOD=\"POST\">");
+			$this->CollectionForm("", "", "new", 0);
+			}
+			
+		function EditCollection($id){
+			if (isset($_POST['newCollSubmit'])){
+				$editColl = $this->GetCollection($id);
+				$editColl->Title($_POST['title']);
+				$editColl->Description($_POST['description']);
+				
+				$editColl->Store();
+				
+				$this->TabbedHtmlOut("<P>Updated successfully.</P>");
+				return;
+				}
+				
+			$editColl = $this->GetCollection($id);
+			$this->CollectionForm($editColl->Title(), $editColl->Description(), "edit", $id);
+			
+			return;
+			}
+		
+		function CollectionForm($collTitle, $collDesc, $action, $id){
+			$this->TabbedHtmlOut("<FORM ACTION=\"index.php?collections=" . $action . "\" METHOD=\"POST\">");
 			$this->TabLevel++;
+			
+			// do not check value of ID field when creating a new collection, only when updating an existing one
+			$this->TabbedHtmlOut("<INPUT TYPE=\"hidden\" NAME=\"id\" VALUE=\"" . $id . "\">");
 			$this->TabbedHtmlOut("<LABEL FOR=\"title\">Title:</LABEL>");
-			$this->TabbedHtmlOut("<INPUT TYPE=\"text\" NAME=\"title\" ID=\"title\" MAXLENGTH=255 SIZE=40>");
+			$this->TabbedHtmlOut("<INPUT TYPE=\"text\" NAME=\"title\" ID=\"title\" MAXLENGTH=255 SIZE=40 VALUE=\"" . $collTitle . "\">");
 			$this->TabbedHtmlOut("<BR>");
 			$this->TabbedHtmlOut("<LABEL FOR=\"description\">Description</LABEL>");
-			$this->TabbedHtmlOut("<TEXTAREA NAME=\"description\" ID=\"description\" MAXLENGTH=65535 ROWS=10 COLS=40></TEXTAREA>");
+			$this->TabbedHtmlOut("<TEXTAREA NAME=\"description\" ID=\"description\" MAXLENGTH=65535 ROWS=10 COLS=40>" . $collDesc . "</TEXTAREA>");
 			$this->TabbedHtmlOut("<BR>");
 			$this->TabbedHtmlOut("<LABEL FOR=\"newCollSubmit\"></LABEL>");
 			$this->TabbedHtmlOut("<INPUT TYPE=\"SUBMIT\" ID = \"newCollSubmit\" NAME=\"newCollSubmit\" VALUE=\"Submit\">");

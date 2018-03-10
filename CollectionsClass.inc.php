@@ -118,7 +118,7 @@
 				if (!($stmt->prepare("UPDATE collections SET title=?, description=? WHERE collectionId=?"))){
 					throw new Exception("prepared statement failed", E_PREPARED_STMT_UNRECOV);
 					}
-				$stmt->bind_param("ssi", $this->Title(), $this->Description, $this->Id());
+				$stmt->bind_param("ssi", $this->Title(), $this->Description(), $this->Id());
 				}
 				
 			$stmt->execute();
