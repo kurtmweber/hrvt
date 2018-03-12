@@ -16,7 +16,7 @@
 	function LoggedOutNavbar(){
 ?>
 		<NAV>
-			<A HREF="index.php" CLASS="navbar-link">[home]</A> | <A HREF="index.php?login" CLASS="navbar-link">[login] | <A HREF="index.php?register" CLASS="navbar-link">[register]</A></A>
+			<A HREF="index.php" CLASS="navbar-link">[home]</A> | <A HREF="index.php?login" CLASS="navbar-link">[login]</A> | <A HREF="index.php?register" CLASS="navbar-link">[register]</A></A>
 		</NAV>
 <?php
 		}
@@ -24,7 +24,7 @@
 	function LoggedInNavbar(){
 ?>
 		<NAV>
-			<A HREF="index.php" CLASS="navbar-link">[home]</A> | <A HREF="index.php?collections" CLASS="navbar-link">[collections]</A> | <A HREF="index.php?logout" CLASS="navbar-link">[logout]</A>
+			<A HREF="index.php" CLASS="navbar-link">[home]</A> | <A HREF="index.php?collections" CLASS="navbar-link">[collections]</A> | <A HREF="index.php?factoids" CLASS="navbar-link">[factoids]</A> | <A HREF="index.php?logout" CLASS="navbar-link">[logout]</A>
 		</NAV>
 <?php
 		}
