@@ -14,6 +14,7 @@
 				} elseif (isset($_GET['logout'])){
 				parent::__construct("Logout");
 				PageTop("Logout");
+				LoggedInNavbar();
 				$this->Logout();
 				}
 			
@@ -23,10 +24,11 @@
 		protected function Logout(){
 			if ($this->user){
 				$this->user->EndSession();
-				$this->TabbedHtmlOut("<P>You are now logged out.</P>");
-				} else {
-				$this->TabbedHtmlOut("<P>You are already logged out.</P>");
 				}
+				
+			ob_end_clean();
+			
+			header("Location: index.php");
 			
 			return;
 			}
@@ -56,8 +58,9 @@
 				LoggedOutNavbar();
 				$this->ShowLoginForm(parent::GetLoginForm("login"));
 				} else {
-				LoggedInNavbar();
-				$this->TabbedHtmlOut("<P>Login succeeded.</P>");
+				ob_end_clean();
+			
+				header("Location: index.php");
 				}
 				
 			return;
