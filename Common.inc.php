@@ -16,7 +16,7 @@
 	function LoggedOutNavbar(){
 ?>
 		<NAV>
-			<A HREF="index.php" CLASS="navbar-link">[home]</A> | <A HREF="index.php?login" CLASS="navbar-link">[login]</A>
+			<A HREF="index.php" CLASS="navbar-link">[home]</A> | <A HREF="index.php?login" CLASS="navbar-link">[login] | <A HREF="index.php?register" CLASS="navbar-link">[register]</A></A>
 		</NAV>
 <?php
 		}

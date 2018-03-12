@@ -78,9 +78,11 @@
 					}
 				$delColl = $this->GetCollection($_POST['id']);
 				
-				$delColl->Delete();
+				if ($delColl){
+					$delColl->Delete();
 					
-				$this->TabbedHtmlOut("<P>Deleted.</P>");
+					$this->TabbedHtmlOut("<P>Deleted.</P>");
+					}
 				
 				return;
 				}
