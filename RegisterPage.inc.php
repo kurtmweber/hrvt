@@ -12,8 +12,9 @@
 			
 			ob_start();
 			PageTop("Register");
+			LoggedOutNavbar();
 			
-			$this->TabbedHtmlOut("<H1 CLASS=\"PageHeader\">Registration</H1>");
+			$this->TabbedHtmlOut("<H2>Registration</H1>");
 				
 			$this->Begin();
 			
