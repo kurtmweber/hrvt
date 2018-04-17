@@ -1,5 +1,5 @@
+// Test Comment
 <?php
-	// Miscellaneous page functions
 	require_once(__DIR__ . "/../Config.inc.php");
 	
 	function PageTop($title, $loggedIn = false){
