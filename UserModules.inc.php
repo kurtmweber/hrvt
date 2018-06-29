@@ -5,5 +5,6 @@
 	$modules[] = array("register", "RegisterPage.inc.php", "RegisterPage");
 	$modules[] = array("login", "LoginPage.inc.php", "LoginPage");
 	$modules[] = array("logout", "LoginPage.inc.php", "LoginPage");
-	$modules[] = array("collections", "CollectionsPage.inc.php", "CollectionsPage");	
+	$modules[] = array("collections", "CollectionsPage.inc.php", "CollectionsPage");
+	$modules[] = array("factoids", "FactoidsPage.inc.php", "FactoidsPage");
 ?>

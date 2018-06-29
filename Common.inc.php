@@ -38,6 +38,14 @@
 <?php
 		}
 		
+	function FactoidsNavbar(){
+?>
+		<NAV CLASS="subnav">
+			<A HREF="index.php?factoids=new" CLASS="navbar-link">[new factoid]</A>
+		</NAV>
+<?php
+		}
+		
 	function PageBottom(){
 		printf("\t</BODY>\n");
 		printf("</HTML>");
